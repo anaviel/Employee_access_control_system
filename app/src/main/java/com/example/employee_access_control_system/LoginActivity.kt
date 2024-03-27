@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -21,12 +22,13 @@ class LoginActivity : AppCompatActivity() {
             val password = editTextPassword.text.toString()
 
             if (login == "admin" && password == "admin") {
-                // Если логин и пароль верные, перейти к MainActivity
+            // Если логин и пароль верные, перейти к MainActivity
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-
+            // Если логин или пароль неверные, отобразить сообщение об ошибке
+                Toast.makeText(this, "Неверный логин или пароль", Toast.LENGTH_SHORT).show()
             }
         }
     }
