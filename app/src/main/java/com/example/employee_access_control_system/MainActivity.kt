@@ -1,15 +1,18 @@
 package com.example.employee_access_control_system
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("MainActivity", "onCreate() вызван")
         super.onCreate(savedInstanceState)
-        // При запуске приложения сначала открываем экран входа
-        startActivity(Intent(this, LoginActivity::class.java))
-        // Закрываем текущую активность, чтобы пользователь не мог вернуться к MainActivity
+        setContentView(R.layout.activity_main)
+
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
         finish()
     }
 }
