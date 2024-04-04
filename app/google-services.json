@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "968815041193",
+    "firebase_url": "https://employee-access-control-system-default-rtdb.firebaseio.com",
+    "project_id": "employee-access-control-system",
+    "storage_bucket": "employee-access-control-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968815041193:android:a010fb3de51f9352ad27b8",
+        "android_client_info": {
+          "package_name": "com.example.employee_access_control_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-EMsGOQClXs1i3j_326CDWGGDWhFjBGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
