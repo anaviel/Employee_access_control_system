@@ -1,5 +1,6 @@
 package com.example.employee_access_control_system
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -57,7 +58,8 @@ class AdminAccountActivity:  AppCompatActivity() {
         }
 
         buttonAdminVisitHistory.setOnClickListener {
-            // Обработчик для кнопки "История посещений"
+            val intent = Intent(this, EmployeeHistoryActivity::class.java)
+            startActivity(intent)
         }
     }
 }

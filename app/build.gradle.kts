@@ -51,6 +51,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-database-ktx:20.0.3")
     implementation ("com.google.firebase:firebase-auth:21.0.0")
+    implementation("com.google.zxing:core:3.4.1") // Зависимость для работы с QR-кодами
 
 
 }
