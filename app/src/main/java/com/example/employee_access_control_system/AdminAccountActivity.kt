@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -23,6 +22,7 @@ class AdminAccountActivity:  AppCompatActivity() {
         val textViewAdminPhoneNumber = findViewById<TextView>(R.id.textViewAdminPhoneNumber)
         val buttonScanQRCode = findViewById<Button>(R.id.buttonScanQRCode)
         val buttonAdminVisitHistory = findViewById<Button>(R.id.buttonAdminVisitHistory)
+        val buttonAddNewEmployee = findViewById<Button>(R.id.buttonAddNewEmployee)
 
         val currentUser = auth.currentUser
 
@@ -59,6 +59,11 @@ class AdminAccountActivity:  AppCompatActivity() {
 
         buttonAdminVisitHistory.setOnClickListener {
             val intent = Intent(this, EmployeeHistoryActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonAddNewEmployee.setOnClickListener {
+            val intent = Intent(this, AddEmployeeActivity::class.java)
             startActivity(intent)
         }
     }

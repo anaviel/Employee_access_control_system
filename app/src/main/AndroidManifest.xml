@@ -33,6 +33,7 @@
         <activity android:name=".AccountActivity"/>
         <activity android:name=".EmployeeHistoryActivity"/>
         <activity android:name=".AdminAccountActivity" />
+        <activity android:name=".AddEmployeeActivity" />
     </application>
 
 </manifest>

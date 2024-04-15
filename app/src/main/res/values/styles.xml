@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomFontTextView">
+        <item name="android:fontFamily">@font/raleway_regular</item>
+    </style>
+    <style name="CustomFontButton">
+        <item name="android:fontFamily">@font/raleway_regular</item>
+    </style>
+</resources>
