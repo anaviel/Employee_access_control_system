@@ -74,7 +74,7 @@
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:padding="10dp"
-        style="@style/CustomFontTextView"/>/>
+        style="@style/CustomFontTextView"/>
 
 </LinearLayout>
 
