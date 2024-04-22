@@ -23,6 +23,9 @@ class AddEmployeeActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var employeesRef: DatabaseReference
 
+    // Определите переменную для хранения сгенерированного пароля
+    private var generatedPassword: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_employee)
@@ -38,6 +41,7 @@ class AddEmployeeActivity : AppCompatActivity() {
         employeesRef = database.getReference("employees")
 
         addEmployeeButton.setOnClickListener {
+            generateAndSavePassword() // Генерация и сохранение пароля перед добавлением сотрудника
             addEmployee()
         }
     }
@@ -54,7 +58,7 @@ class AddEmployeeActivity : AppCompatActivity() {
                 val login = "employee" + String.format("%06d", employeeCount) // Форматируем номер для получения логина вида "employee000001"
 
                 // Регистрация нового пользователя в Firebase Authentication
-                auth.createUserWithEmailAndPassword("$login@gmail.com", generatePassword())
+                auth.createUserWithEmailAndPassword("$login@gmail.com", generatedPassword)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             // Если регистрация успешна, добавляем данные сотрудника в базу данных Realtime Database
@@ -66,7 +70,7 @@ class AddEmployeeActivity : AppCompatActivity() {
                             employeeRef.child("position").setValue(position)
 
                             // Отображение логина и пароля нового сотрудника
-                            loginPasswordTextView.text = "Был добавлен новый сотрудник.\n\nЛогин: $login@gmail.com\nПароль: ${generatePassword()}"
+                            loginPasswordTextView.text = "Был добавлен новый сотрудник.\n\nЛогин: $login@gmail.com\nПароль: $generatedPassword"
                         } else {
                             // Если регистрация не удалась, выведите сообщение об ошибке
                             Toast.makeText(this@AddEmployeeActivity, "Ошибка при регистрации пользователя: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
@@ -81,6 +85,11 @@ class AddEmployeeActivity : AppCompatActivity() {
         })
     }
 
+    // Вызов этого метода для генерации пароля и сохранения его в переменной
+    private fun generateAndSavePassword() {
+        generatedPassword = generatePassword()
+    }
+
     // Генерация случайного пароля
     private fun generatePassword(): String {
         val charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -89,4 +98,5 @@ class AddEmployeeActivity : AppCompatActivity() {
             .joinToString("")
     }
 }
+
 
