@@ -1,12 +1,14 @@
+package com.example.employee_access_control_system
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.employee_access_control_system.History
-import com.example.employee_access_control_system.R
 
 class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+
+    private var itemClickListener: HistoryItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
@@ -16,6 +18,10 @@ class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val history = historyList[position]
         holder.bind(history)
+
+        holder.itemView.setOnClickListener {
+            itemClickListener?.onItemClick(history)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -32,5 +38,13 @@ class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adap
             timestampTextView.text = "Timestamp: ${history.timestamp}"
             typeTextView.text = "Type: ${history.type}"
         }
+    }
+
+    interface HistoryItemClickListener {
+        fun onItemClick(history: History)
+    }
+
+    fun setOnItemClickListener(listener: HistoryItemClickListener) {
+        itemClickListener = listener
     }
 }

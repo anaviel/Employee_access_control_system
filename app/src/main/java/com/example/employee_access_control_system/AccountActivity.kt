@@ -23,7 +23,7 @@ class AccountActivity : AppCompatActivity() {
         val textViewFullName = findViewById<TextView>(R.id.textViewFullName)
         val textViewPosition = findViewById<TextView>(R.id.textViewPosition)
         val textViewPhoneNumber = findViewById<TextView>(R.id.textViewPhoneNumber)
-        val buttonShowVisitHistory = findViewById<Button>(R.id.buttonShowVisitHistory)
+        val buttonShowVisitHistoryActivity = findViewById<Button>(R.id.buttonShowVisitHistoryActivity)
         val buttonShowQRCode = findViewById<Button>(R.id.buttonShowQRCode)
 
         val currentUser = auth.currentUser
@@ -70,8 +70,8 @@ class AccountActivity : AppCompatActivity() {
         }
 
         // Обработчик нажатия на кнопку "Открыть историю посещений"
-        buttonShowVisitHistory.setOnClickListener {
-            val intent = Intent(this, EmployeeHistoryActivity::class.java)
+        buttonShowVisitHistoryActivity.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
 
