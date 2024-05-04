@@ -1,11 +1,12 @@
 package com.example.employee_access_control_system
 
 data class History(
-    val id: String = "",
+    val uid: String = "",
+    val date: String = "",
+    val employeeName: String = "",
     val timestamp: String = "",
-    val type: String = "",
-    val employeeName: String = ""
+    val type: String = ""
 ) {
 
-    constructor() : this("", "", "", "")
+    constructor() : this("", "", "", "", "")
 }

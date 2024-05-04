@@ -54,7 +54,8 @@ class AdminAccountActivity:  AppCompatActivity() {
         }
 
         buttonScanQRCode.setOnClickListener {
-            // Обработчик для кнопки "Сканировать QR-код"
+            val intent = Intent(this, GenerationScanner::class.java)
+            startActivity(intent)
         }
 
         buttonAdminVisitHistory.setOnClickListener {

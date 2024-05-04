@@ -1,8 +1,10 @@
 package com.example.employee_access_control_system
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,7 +21,7 @@ class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adap
         val history = historyList[position]
         holder.bind(history)
 
-        holder.itemView.setOnClickListener {
+        holder.employeeButton.setOnClickListener {
             itemClickListener?.onItemClick(history)
         }
     }
@@ -29,14 +31,10 @@ class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adap
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val idTextView: TextView = itemView.findViewById(R.id.idTextView)
-        private val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
-        private val typeTextView: TextView = itemView.findViewById(R.id.typeTextView)
+        val employeeButton: Button = itemView.findViewById(R.id.employeeButton)
 
         fun bind(history: History) {
-            idTextView.text = "ID: ${history.id}"
-            timestampTextView.text = "Timestamp: ${history.timestamp}"
-            typeTextView.text = "Type: ${history.type}"
+            employeeButton.text = history.employeeName
         }
     }
 
@@ -48,3 +46,5 @@ class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adap
         itemClickListener = listener
     }
 }
+
+
