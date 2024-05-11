@@ -10,51 +10,53 @@
     android:background="@android:color/white">
 
     <TextView
-        android:id="@+id/idTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID: "
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
         android:id="@+id/timestampTextView"
+        style="@style/CustomFontTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Timestamp: "
-        app:layout_constraintTop_toBottomOf="@+id/idTextView"
+        android:layout_marginTop="16dp"
+        android:text="Время: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/typeTextView"
+        style="@style/CustomFontTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type: "
-        app:layout_constraintTop_toBottomOf="@+id/timestampTextView"
+        android:layout_marginTop="16dp"
+        android:text="Тип действия: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/timestampTextView" />
 
     <TextView
         android:id="@+id/employeeNameTextView"
+        style="@style/CustomFontTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Employee Name: "
-        app:layout_constraintTop_toBottomOf="@+id/typeTextView"
+        android:layout_marginTop="12dp"
+        android:text="Имя сотрудника: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeTextView" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        style="@style/CustomFontTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Дата: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/employeeNameTextView" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/dateTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

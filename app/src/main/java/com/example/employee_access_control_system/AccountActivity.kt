@@ -69,10 +69,11 @@ class AccountActivity : AppCompatActivity() {
         }
 
         // Обработчик нажатия на кнопку "Открыть историю посещений"
-        buttonShowVisitHistoryActivity.setOnClickListener {
-            val intent = Intent(this, HistoryActivity::class.java)
-            startActivity(intent)
-        }
+            buttonShowVisitHistoryActivity.setOnClickListener {
+                val intent = Intent(this, EmployeeDetailsActivity::class.java).apply {
+                }
+                startActivity(intent)
+            }
 
         buttonShowQRCode.setOnClickListener {
             val intent = Intent(this, QrcodeActivity::class.java)
