@@ -1,8 +1,11 @@
 package com.example.employee_access_control_system
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -10,48 +13,57 @@ class EmployeeDetailsActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: EmployeeDetailsAdapter
+    private val historyList = mutableListOf<History>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.employee_details)
+        setContentView(R.layout.activity_employee_details)
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
 
+        // Получение UID пользователя из Intent
+        val uid = intent.getStringExtra("id") ?: ""
+
         // Получение данных о сотруднике из Intent
-        val id = intent.getStringExtra("id")
-        val timestamp = intent.getStringExtra("timestamp")
-        val type = intent.getStringExtra("type")
-        val date = intent.getStringExtra("date")
+        val fullName = intent.getStringExtra("fullName")
+        Log.d("EmployeeDetailsActivity", "Full Name: $fullName")
 
-        // Нахождение TextView в макете
-        val timestampTextView = findViewById<TextView>(R.id.timestampTextView)
-        val typeTextView = findViewById<TextView>(R.id.typeTextView)
+        // Нахождение TextView в макете и установка имени пользователя
         val employeeNameTextView = findViewById<TextView>(R.id.employeeNameTextView)
-        val dateTextView = findViewById<TextView>(R.id.dateTextView)
+        employeeNameTextView.text = fullName
 
-        // Установка полученных данных в TextView
-        timestampTextView.text = "Время: $timestamp"
-        typeTextView.text = "Тип дествия: $type"
+        // Нахождение RecyclerView в макете
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = EmployeeDetailsAdapter(historyList) // Исправлено имя адаптера
+        recyclerView.adapter = adapter
 
-        // Получение имени сотрудника из базы данных
-        id?.let { uid ->
-            val employeeNameRef = database.child("employees").child(uid).child("fullName")
-            employeeNameRef.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val employeeName = snapshot.value.toString()
-                    employeeNameTextView.text = "Имя сотрудника: $employeeName"
+        // Запрос к базе данных Firebase для получения записей History с указанным UID
+        val query = database.child("History").orderByChild("uid").equalTo(uid)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                historyList.clear()
+                for (snapshot in dataSnapshot.children) {
+                    val id = snapshot.key ?: ""
+                    val time = snapshot.child("time").getValue(String::class.java) ?: ""
+                    val type = snapshot.child("type").getValue(String::class.java) ?: ""
+                    val date = snapshot.child("date").getValue(String::class.java) ?: ""
+                    val fullName = snapshot.child("fullName").getValue(String::class.java) ?: ""
+                    val history = History(id, uid, date, fullName, time, type)
+                    historyList.add(history)
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    // Обработка ошибок при чтении данных
-                }
-            })
-        }
+                adapter.notifyDataSetChanged()
+            }
 
-        // Установка даты в TextView
-        date?.let {
-            dateTextView.text = "Дата: $it"
-        }
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Обработка ошибок
+            }
+        })
     }
 }
+
+

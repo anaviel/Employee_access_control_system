@@ -34,7 +34,7 @@ class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adap
         val employeeButton: Button = itemView.findViewById(R.id.employeeButton)
 
         fun bind(history: History) {
-            employeeButton.text = history.employeeName
+            employeeButton.text = history.fullName
         }
     }
 

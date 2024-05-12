@@ -18,7 +18,7 @@ class EmployeeHistoryActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var recyclerView: RecyclerView
     private lateinit var button2: ImageButton
-    private val historyList = mutableListOf<History>()
+    private val historyMap = mutableMapOf<String, History>()
     private lateinit var searchButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,41 +32,42 @@ class EmployeeHistoryActivity : AppCompatActivity() {
 
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         val historyRef: DatabaseReference = database.getReference("History")
+        val historyMap = mutableMapOf<String, History>()
 
         historyRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    historyList.clear()
+                    historyMap.clear()
                     for (historySnapshot in snapshot.children) {
-                        val uid = historySnapshot.key ?: ""
-                        val employee = historySnapshot.getValue(History::class.java)
-                        employee?.let {
-                            // Проверяем, существует ли уже карточка истории для данного сотрудника
-                            val existingHistory = historyList.find { it.uid == uid }
-                            if (existingHistory != null) {
-                                // Если карточка уже существует, обновляем ее данные
-                                existingHistory.date = employee.date
-                                existingHistory.employeeName = employee.employeeName
-                                existingHistory.timestamp = employee.timestamp
-                                existingHistory.type = employee.type
-                            } else {
-                                // Если карточка не существует, создаем новую
-                                val historyItem = History(uid, employee.date, employee.employeeName, employee.timestamp, employee.type)
-                                historyList.add(historyItem)
-                            }
+                        val id = historySnapshot.key ?: ""
+                        val uid = historySnapshot.child("uid").getValue(String::class.java) ?: ""
+                        val date = historySnapshot.child("date").getValue(String::class.java) ?: ""
+                        val fullName =
+                            historySnapshot.child("fullName").getValue(String::class.java) ?: ""
+                        val time = historySnapshot.child("time").getValue(String::class.java) ?: ""
+                        val type = historySnapshot.child("type").getValue(String::class.java) ?: ""
+
+                        // Проверяем, существует ли уже запись с таким uid в historyMap
+                        if (!historyMap.containsKey(uid)) {
+                            val history = History(id, uid, date, fullName, time, type)
+                            historyMap[uid] = history // Добавляем запись в historyMap
                         }
                     }
                     // Обновляем RecyclerView после обработки данных
-                    val adapter = HistoryAdapter(historyList)
+                    val adapter = HistoryAdapter(historyMap.values.toList())
                     recyclerView.adapter = adapter
                     recyclerView.layoutManager = LinearLayoutManager(this@EmployeeHistoryActivity)
-                    adapter.setOnItemClickListener(object : HistoryAdapter.HistoryItemClickListener {
+                    adapter.setOnItemClickListener(object :
+                        HistoryAdapter.HistoryItemClickListener {
                         override fun onItemClick(history: History) {
-                            val intent = Intent(this@EmployeeHistoryActivity, EmployeeDetailsActivity::class.java).apply {
+                            val intent = Intent(
+                                this@EmployeeHistoryActivity,
+                                EmployeeDetailsActivity::class.java
+                            ).apply {
                                 putExtra("id", history.uid)
-                                putExtra("timestamp", history.timestamp)
+                                putExtra("time", history.time)
                                 putExtra("type", history.type)
-                                putExtra("employeeName", history.employeeName)
+                                putExtra("fullName", history.fullName)
                                 putExtra("date", history.date)
                             }
                             startActivity(intent)
@@ -116,20 +117,19 @@ class EmployeeHistoryActivity : AppCompatActivity() {
 
     // Метод для выполнения поиска сотрудников
     private fun searchEmployees(query: String) {
-        val filteredList = historyList.filter { it.employeeName.contains(query, ignoreCase = true) }
+        val filteredList = historyMap.values.filter { it.fullName.contains(query, ignoreCase = true) }
         if (filteredList.isNotEmpty()) {
-            val adapter = HistoryAdapter(filteredList.toMutableList())
+            val adapter = HistoryAdapter(filteredList)
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(this@EmployeeHistoryActivity)
 
-            // Устанавливаем обработчик нажатия после обновления RecyclerView
             adapter.setOnItemClickListener(object : HistoryAdapter.HistoryItemClickListener {
                 override fun onItemClick(history: History) {
                     val intent = Intent(this@EmployeeHistoryActivity, EmployeeDetailsActivity::class.java).apply {
-                        putExtra("id", history.uid)
-                        putExtra("timestamp", history.timestamp)
+                        putExtra("id", history.id)
+                        putExtra("time", history.time)
                         putExtra("type", history.type)
-                        putExtra("employeeName", history.employeeName)
+                        putExtra("fullName", history.fullName)
                         putExtra("date", history.date)
                     }
                     startActivity(intent)
@@ -138,4 +138,6 @@ class EmployeeHistoryActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Сотрудник не найден", Toast.LENGTH_SHORT).show()
         }
-    }}
+    }
+
+}
