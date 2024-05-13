@@ -13,17 +13,13 @@ import android.graphics.Color
 
 class QrcodeActivity : AppCompatActivity() {
     private var im: ImageView? = null
-    private var bGenerate: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode)
 
         im = findViewById(R.id.imageView5)
-        bGenerate = findViewById(R.id.button)
-        bGenerate?.setOnClickListener {
-            generateQrCode("ФИО сотрудника")
-        }
+        generateQrCode("ФИО сотрудника")
     }
 
     private fun generateQrCode(text: String) {
@@ -42,5 +38,10 @@ class QrcodeActivity : AppCompatActivity() {
         } catch (e: WriterException) {
             e.printStackTrace()
         }
+    }
+
+    // Обработка нажатия кнопки "Назад"
+    fun goBack() {
+        finish()
     }
 }
