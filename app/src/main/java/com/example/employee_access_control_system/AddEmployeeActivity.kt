@@ -68,6 +68,7 @@ class AddEmployeeActivity : AppCompatActivity() {
                             employeeRef.child("fullName").setValue(fullName)
                             employeeRef.child("phoneNumber").setValue(phoneNumber)
                             employeeRef.child("position").setValue(position)
+                            employeeRef.child("status").setValue(0)
 
                             // Отображение логина и пароля нового сотрудника
                             loginPasswordTextView.text = "Был добавлен новый сотрудник.\n\nЛогин: $login@gmail.com\nПароль: $generatedPassword"

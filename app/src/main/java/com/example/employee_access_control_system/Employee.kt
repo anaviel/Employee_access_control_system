@@ -4,10 +4,11 @@ data class Employee(
     val id: String = "",
     val fullName: String = "",
     val phoneNumber: String = "",
-    val position: String = ""
+    val position: String = "",
+    val status: Int
 ) {
     // Пустой конструктор
-    constructor() : this("", "", "", "")
+    constructor() : this("", "", "", "", 0)
 }
 
 class Admin(

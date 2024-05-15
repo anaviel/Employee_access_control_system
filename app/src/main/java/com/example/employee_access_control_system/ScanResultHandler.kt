@@ -28,8 +28,13 @@ class ScanResultHandler : AppCompatActivity() {
         database.child("employees").child(uid).get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot.exists()) {
                 val fullName = dataSnapshot.child("fullName").getValue(String::class.java)
+                val status = dataSnapshot.child("status").getValue(Int::class.java) ?: 0
                 if (fullName != null) {
-                    saveScanResult(fullName, uid)
+                    if (status == 0){
+                        saveScanResult(fullName, uid, 1)
+                    } else {
+                        saveScanResult(fullName, uid, 0)
+                    }
                 } else {
                     showMessage("Произошла ошибка! Некорректные данные о сотруднике.")
                 }
@@ -45,10 +50,15 @@ class ScanResultHandler : AppCompatActivity() {
         database.child("admins").child(uid).get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot.exists()) {
                 val fullName = dataSnapshot.child("fullName").getValue(String::class.java)
+                val status = dataSnapshot.child("status").getValue(Int::class.java) ?: 0
                 if (fullName != null) {
-                    saveScanResult(fullName, uid)
+                    if (status == 0) {
+                        saveScanResult(fullName, uid, 1)
+                    } else {
+                        saveScanResult(fullName, uid, 0)
+                    }
                 } else {
-                    showMessage("Произошла ошибка! Некорректные данные о б администраторе.")
+                    showMessage("Произошла ошибка! Некорректные данные об администраторе.")
                 }
             } else {
                 showMessage("Произошла ошибка! Некорректный QR-код.")
@@ -58,14 +68,18 @@ class ScanResultHandler : AppCompatActivity() {
         }
     }
 
-    private fun saveScanResult(fullName: String, uid: String) {
+    private fun saveScanResult(fullName: String, uid: String, newStatus: Int) {
         val currentDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())
         val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+        val actionType = if (newStatus == 1) "вход" else "выход"
+
+        database.child("employees").child(uid).child("status").setValue(newStatus)
+
         val historyReference = database.child("History").push()
         historyReference.child("date").setValue(currentDate)
         historyReference.child("fullName").setValue(fullName)
         historyReference.child("time").setValue(currentTime)
-        historyReference.child("type").setValue("вход")
+        historyReference.child("type").setValue(actionType)
         historyReference.child("uid").setValue(uid)
 
         showMessage("Сканирование произведено успешно!")
