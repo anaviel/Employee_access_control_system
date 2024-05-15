@@ -1,5 +1,6 @@
 package com.example.employee_access_control_system
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -16,8 +17,10 @@ class GenerationScanner : AppCompatActivity() {
         if (result.contents == null) {
             Toast.makeText(this@GenerationScanner, "Cancelled", Toast.LENGTH_LONG).show()
         } else {
-            Toast.makeText(this@GenerationScanner, "Scanned: " + result.contents, Toast.LENGTH_LONG)
-                .show()
+            val scannedUid = result.contents
+            val intent = Intent(this@GenerationScanner, ScanResultHandler::class.java)
+            intent.putExtra("scannedUid", scannedUid)
+            startActivity(intent)
         }
     }
 
