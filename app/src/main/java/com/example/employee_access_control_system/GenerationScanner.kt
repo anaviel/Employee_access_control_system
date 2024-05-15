@@ -22,6 +22,7 @@ class GenerationScanner : AppCompatActivity() {
             intent.putExtra("scannedUid", scannedUid)
             startActivity(intent)
         }
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -14,15 +14,13 @@ class ScanResultHandler : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scan_result_handler)
-
         database = FirebaseDatabase.getInstance().reference
         val scannedUid = intent.getStringExtra("scannedUid")
 
         if (scannedUid != null) {
             searchEmployee(scannedUid)
         } else {
-            showError("Произошла ошибка! Некорректный QR-код.")
+            showMessage("Произошла ошибка! Некорректный QR-код.")
         }
     }
 
@@ -33,13 +31,13 @@ class ScanResultHandler : AppCompatActivity() {
                 if (fullName != null) {
                     saveScanResult(fullName, uid)
                 } else {
-                    showError("Произошла ошибка! Некорректные данные о сотруднике.")
+                    showMessage("Произошла ошибка! Некорректные данные о сотруднике.")
                 }
             } else {
                 searchAdmin(uid)
             }
         }.addOnFailureListener {
-            showError("Произошла ошибка при поиске сотрудника.")
+            showMessage("Произошла ошибка при поиске сотрудника.")
         }
     }
 
@@ -50,13 +48,13 @@ class ScanResultHandler : AppCompatActivity() {
                 if (fullName != null) {
                     saveScanResult(fullName, uid)
                 } else {
-                    showError("Произошла ошибка! Некорректные данные о б администраторе.")
+                    showMessage("Произошла ошибка! Некорректные данные о б администраторе.")
                 }
             } else {
-                showError("Произошла ошибка! Некорректный QR-код.")
+                showMessage("Произошла ошибка! Некорректный QR-код.")
             }
         }.addOnFailureListener {
-            showError("Произошла ошибка при поиске администратора.")
+            showMessage("Произошла ошибка при поиске администратора.")
         }
     }
 
@@ -70,15 +68,10 @@ class ScanResultHandler : AppCompatActivity() {
         historyReference.child("type").setValue("вход")
         historyReference.child("uid").setValue(uid)
 
-        showSuccessMessage("Сканирование произведено успешно!")
+        showMessage("Сканирование произведено успешно!")
     }
 
-    private fun showError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-        finish()
-    }
-
-    private fun showSuccessMessage(message: String) {
+    private fun showMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         finish()
     }
