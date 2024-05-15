@@ -2,7 +2,6 @@ package com.example.employee_access_control_system
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
@@ -10,6 +9,7 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import android.graphics.Bitmap
 import android.graphics.Color
+import com.google.firebase.auth.FirebaseAuth
 
 class QrcodeActivity : AppCompatActivity() {
     private var im: ImageView? = null
@@ -19,13 +19,14 @@ class QrcodeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_qrcode)
 
         im = findViewById(R.id.imageView5)
-        generateQrCode("ФИО сотрудника")
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+        currentUserUid?.let { generateQrCode(it) }
     }
 
-    private fun generateQrCode(text: String) {
+    private fun generateQrCode(uid: String) {
         val multiFormatWriter = MultiFormatWriter()
         try {
-            val bitMatrix: BitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, 500, 500)
+            val bitMatrix: BitMatrix = multiFormatWriter.encode(uid, BarcodeFormat.QR_CODE, 500, 500)
             val width: Int = bitMatrix.width
             val height: Int = bitMatrix.height
             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
