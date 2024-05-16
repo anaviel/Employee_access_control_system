@@ -39,32 +39,10 @@ class ScanResultHandler : AppCompatActivity() {
                     showMessage("Произошла ошибка! Некорректные данные о сотруднике.")
                 }
             } else {
-                searchAdmin(uid)
-            }
-        }.addOnFailureListener {
-            showMessage("Произошла ошибка при поиске сотрудника.")
-        }
-    }
-
-    private fun searchAdmin(uid: String) {
-        database.child("admins").child(uid).get().addOnSuccessListener { dataSnapshot ->
-            if (dataSnapshot.exists()) {
-                val fullName = dataSnapshot.child("fullName").getValue(String::class.java)
-                val status = dataSnapshot.child("status").getValue(Int::class.java) ?: 0
-                if (fullName != null) {
-                    if (status == 0) {
-                        saveScanResult(fullName, uid, 1)
-                    } else {
-                        saveScanResult(fullName, uid, 0)
-                    }
-                } else {
-                    showMessage("Произошла ошибка! Некорректные данные об администраторе.")
-                }
-            } else {
                 showMessage("Произошла ошибка! Некорректный QR-код.")
             }
         }.addOnFailureListener {
-            showMessage("Произошла ошибка при поиске администратора.")
+            showMessage("Произошла ошибка при поиске сотрудника.")
         }
     }
 
