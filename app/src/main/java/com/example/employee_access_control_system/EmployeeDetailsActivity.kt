@@ -17,6 +17,7 @@ class EmployeeDetailsActivity : AppCompatActivity() {
     private lateinit var adapter: EmployeeDetailsAdapter
     private val historyList = mutableListOf<History>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_employee_details)

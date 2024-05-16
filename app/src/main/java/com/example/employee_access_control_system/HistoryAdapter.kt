@@ -1,11 +1,9 @@
 package com.example.employee_access_control_system
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
@@ -45,6 +43,5 @@ class HistoryAdapter(private val historyList: List<History>) : RecyclerView.Adap
     fun setOnItemClickListener(listener: HistoryItemClickListener) {
         itemClickListener = listener
     }
+
 }
-
-
