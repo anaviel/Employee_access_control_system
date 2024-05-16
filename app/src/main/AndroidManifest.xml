@@ -35,13 +35,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".EmployeeDetailsActivity" />
         <activity android:name=".QrcodeActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".AdminAccountActivity" />
         <activity android:name=".HistoryActivity" />
-        <activity android:name=".EmployeeHistoryActivity" />
+        <activity android:name=".EmployeeHistoryActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".AddEmployeeActivity" />
         <activity android:name=".HistoryAdapter" />
         <activity android:name=".EmployeeDetailsAdapter" />

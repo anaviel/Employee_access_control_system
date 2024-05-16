@@ -18,8 +18,8 @@ class EmployeeHistoryActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var recyclerView: RecyclerView
     private lateinit var button2: ImageButton
-    private val historyMap = mutableMapOf<String, History>()
     private lateinit var searchButton: ImageButton
+    private val historyMap = mutableMapOf<String, History>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,6 @@ class EmployeeHistoryActivity : AppCompatActivity() {
 
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         val historyRef: DatabaseReference = database.getReference("History")
-        val historyMap = mutableMapOf<String, History>()
 
         historyRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -81,7 +80,6 @@ class EmployeeHistoryActivity : AppCompatActivity() {
                 Log.e("EmployeeHistoryActivity", "Ошибка при чтении данных из базы данных: ${error.message}")
             }
         })
-
 
         // Обработка нажатия на кнопку "Назад"
         button2.setOnClickListener {
@@ -139,5 +137,4 @@ class EmployeeHistoryActivity : AppCompatActivity() {
             Toast.makeText(this, "Сотрудник не найден", Toast.LENGTH_SHORT).show()
         }
     }
-
 }
