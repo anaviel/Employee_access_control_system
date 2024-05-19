@@ -16,21 +16,31 @@
 Для входа сотрудникам и администратору необходимо ввести логин и пароль.  
 
 Экран входа в личный кабинет:  
-![Первый скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/entrance.png)
+![Первый скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/entrance.png)  
 ### Функционал сотрудника
 Сотруднику необходимо выполнить вход в приложении для дальнейшего пользования.
 После чего сотрудник оказывается в личном кабинете, где указано его ФИО, номер телефона и должность.
 У сотрудника есть 2 кнопки для пользования: "Показать QR-код" и "Открыть историю посещений". В первой кнопке сотруднику генерируется разовый QR-код для осуществления входа или выхода из помещения. Во второй кнопке сотруднику предоставляется его полная история посещений. 
 
 Экран личного кабинета сотрудника:  
-![Второй скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/employee.png)
+![Второй скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/employee.png)  
+Экран QR-кода сотрудника:  
+![Третий скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/add_emp.png)  
+Экран истории посещений сотрудника:  
+![Четвертый скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/history_emp.png)  
 ### Функционал администратора
 Администратору необходимо выполнить вход в приложении для дальнейшего пользования.
 После чего администратор оказывается в личном кабинете, где указано его ФИО, номер телефона и должность.
 У администратора есть 3 кнопки для пользования: "Сканировать QR-код", "История посещений" и "Добавить сотрудника". В первой кнопке администратор сканирует QR-код входящих и выходящих сотрудников для занесения их в базу данных. Во второй кнопке администратору доступны все истории посещений сотрудников, нажав на любого сотрудника, он попадет на его полную историю взодов и выходов. В тертьей кнопке есть возможность добавить нового сотрудника в базу данных.   
 
 Экран личного кабинета администратора:  
-![Третий скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/admin.png)
+![Пятый скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/admin.png)  
+Экран сканирования QR-кодов:  
+![Шестой скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/qr_adm.png)  
+Экран просмотра истории посещений:  
+![Седьмой скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/history_adm.png)  
+Экран добавления сотрудников:  
+![Восьмой скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/add_adm.png)  
 ## Пользование приложением
 ### Инструкция по запуску приложения
 Скачивание приложения:    
