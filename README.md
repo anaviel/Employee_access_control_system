@@ -40,7 +40,7 @@
 Экран просмотра истории посещений:  
 ![Седьмой скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/history_adm.png)  
 Экран добавления сотрудников:  
-![Восьмой скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/add_adm.png)  
+![Восьмой скриншот](https://github.com/anaviel/Employee_access_control_system/blob/master/screens/add_emp.png)  
 ## Пользование приложением
 ### Инструкция по запуску приложения
 Скачивание приложения:    
