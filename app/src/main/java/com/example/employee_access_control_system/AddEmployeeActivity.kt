@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ class AddEmployeeActivity : AppCompatActivity() {
     private lateinit var positionEditText: EditText
     private lateinit var addEmployeeButton: Button
     private lateinit var loginPasswordTextView: TextView
+    private lateinit var button2: ImageButton
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
@@ -35,6 +37,7 @@ class AddEmployeeActivity : AppCompatActivity() {
         positionEditText = findViewById(R.id.editTextAddPosition)
         addEmployeeButton = findViewById(R.id.buttonAddEmployee)
         loginPasswordTextView = findViewById(R.id.textViewLoginPassword)
+        button2 = findViewById(R.id.backButton)
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
@@ -44,12 +47,18 @@ class AddEmployeeActivity : AppCompatActivity() {
             generateAndSavePassword() // Генерация и сохранение пароля перед добавлением сотрудника
             addEmployee()
         }
+
+        // Обработка нажатия на кнопку "Назад"
+        button2.setOnClickListener {
+            finish()
+        }
     }
 
     private fun addEmployee() {
         val fullName = fullNameEditText.text.toString()
         val phoneNumber = phoneNumberEditText.text.toString()
         val position = positionEditText.text.toString()
+
 
         // Получаем текущее количество сотрудников из базы данных
         employeesRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -98,6 +107,8 @@ class AddEmployeeActivity : AppCompatActivity() {
             .map { charset.random() }
             .joinToString("")
     }
+
+
 }
 
 

@@ -9,13 +9,25 @@
     android:padding="16dp"
     android:background="@android:color/white">
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="67dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:maxWidth="48dp"
+        android:maxHeight="48dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/employeeNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
@@ -26,7 +38,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/employeeNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/employeeNameTextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

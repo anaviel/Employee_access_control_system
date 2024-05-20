@@ -124,7 +124,7 @@ class EmployeeHistoryActivity : AppCompatActivity() {
             adapter.setOnItemClickListener(object : HistoryAdapter.HistoryItemClickListener {
                 override fun onItemClick(history: History) {
                     val intent = Intent(this@EmployeeHistoryActivity, EmployeeDetailsActivity::class.java).apply {
-                        putExtra("id", history.id)
+                        putExtra("id", history.uid)
                         putExtra("time", history.time)
                         putExtra("type", history.type)
                         putExtra("fullName", history.fullName)

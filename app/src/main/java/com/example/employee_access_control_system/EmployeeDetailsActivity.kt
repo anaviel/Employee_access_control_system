@@ -2,6 +2,7 @@ package com.example.employee_access_control_system
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ class EmployeeDetailsActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: EmployeeDetailsAdapter
+    private lateinit var button2: ImageButton
     private val historyList = mutableListOf<History>()
 
 
@@ -24,6 +26,8 @@ class EmployeeDetailsActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
+
+        button2 = findViewById(R.id.backButton)
 
         // Получение UID пользователя из Intent
         val uid = intent.getStringExtra("id") ?: ""
@@ -61,9 +65,14 @@ class EmployeeDetailsActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Обработка ошибок
+                Log.e("EmployeeDetailsActivity", "Ошибка при чтении данных из базы данных")
             }
         })
+
+        // Обработка нажатия на кнопку "Назад"
+        button2.setOnClickListener {
+            finish()
+        }
     }
 }
 
